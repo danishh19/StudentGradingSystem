@@ -1,4 +1,7 @@
-<?php include 'db.php';
+<?php
+include 'auth.php';
+include 'db.php';
+
 // delete.php — DELETE (the "D" in CRUD)
 // This page has no HTML of its own. It just deletes one student
 // and then immediately sends the user back to the list.

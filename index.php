@@ -1,10 +1,4 @@
-<?php
-include 'db.php';
-
-$stmt = $conn->prepare("SELECT * FROM results");
-$stmt->execute();
-$results = $stmt->get_result();
-?>
+<?php include 'auth.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +9,9 @@ $results = $stmt->get_result();
 </head>
 <body>
     <h1>Student Grading System</h1>
+    <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</p>
+
+<a href="logout.php">Logout</a>
     <h3> Student Records</h3>
     <a href ="add.php">+ Add Result</a>
 
@@ -42,24 +39,6 @@ $results = $stmt->get_result();
         <th>Grade</th>
         <th>Actions</th>
 </tr>
-    <?php
-    
-    $no = 1;
-    while ($row = $results->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . $no++ . "</td>";
-        echo "<td>" . htmlspecialchars($row['student_name']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['matric_no']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['subject_name']) . "</td>";
-        echo "<td>" . number_format($row['test1'], 2) . "</td>";
-        echo "<td>" . number_format($row['test2'], 2) . "</td>";
-        echo "<td>" . number_format($row['final_exam'], 2) . "</td>";
-        echo "<td>" . number_format($row['total_marks'], 2) . "</td>";
-        echo "<td>" . htmlspecialchars($row['grade']) . "</td>";
-        echo "<td><a href='edit.php?id=" . $row['result'] . "'>Edit</a> | <a href='delete.php?id=" . $row['result'] . "'>Delete</a></td>";
-        echo "</tr>";
-    }
-    ?>
     </table>
 </body>
 </html>

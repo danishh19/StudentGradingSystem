@@ -1,6 +1,6 @@
-    <?php include 'db.php';
-    // edit.php — UPDATE (the "U" in CRUD)
-    // Loads one student's current details into a form, then saves the changes.
+    <?php
+include 'auth.php';
+include 'db.php';
 
     // $_GET is a built-in PHP array that holds values coming from the URL.
     // The list page links here as edit.php?id=3.

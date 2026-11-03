@@ -1,5 +1,6 @@
 <?php
-include 'db.php'; 
+include 'auth.php';
+include 'db.php';
 ?>
 
 <h2>Add Results</h2>
