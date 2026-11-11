@@ -3,7 +3,7 @@
 function calculateResult(array $input): array
 {
     $marks = [];
-    foreach (['test1' => 20, 'test2' => 30, 'final_exam' => 100] as $field => $maximum) {
+    foreach (['test1' => 20, 'test2' => 30, 'final_exam' => 50] as $field => $maximum) {
         $value = $input[$field] ?? null;
         if (!is_scalar($value) || !is_numeric($value) || !is_finite((float) $value)
             || (float) $value < 0 || (float) $value > $maximum) {
@@ -11,7 +11,7 @@ function calculateResult(array $input): array
         }
         $marks[$field] = (float) $value;
     }
-    $marks['total_marks'] = round($marks['test1'] + $marks['test2'] + $marks['final_exam'] * 0.5, 2);
+    $marks['total_marks'] = round($marks['test1'] + $marks['test2'] + $marks['final_exam'], 2);
     $total = $marks['total_marks'];
     if ($total >= 80) {
         $marks['grade'] = 'A';

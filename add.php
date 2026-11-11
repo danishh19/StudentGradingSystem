@@ -92,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input id="test2" type="number" name="test2" min="0" max="30" step="0.01" required value="<?php echo escape($row['test2']); ?>">
                             </div>
                             <div class="field">
-                                <label for="final_exam">Final Exam (out of 100)</label>
-                                <input id="final_exam" type="number" name="final_exam" min="0" max="100" step="0.01" required value="<?php echo escape($row['final_exam']); ?>">
+                                <label for="final_exam">Final Exam (out of 50)</label>
+                                <input id="final_exam" type="number" name="final_exam" min="0" max="50" step="0.01" required value="<?php echo escape($row['final_exam']); ?>">
                             </div>
                         </div>
                         <div class="form-actions">
