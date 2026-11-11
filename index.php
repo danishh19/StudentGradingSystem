@@ -2,7 +2,21 @@
 include 'auth.php';
 include 'db.php';
 require_once 'helpers.php';
-$results = $conn->query('SELECT * FROM results ORDER BY result DESC');
+
+
+$search = $_GET['searchInput'] ?? '';
+$search = is_string($search) ? trim($search) : '';
+
+if ($search !== '') {
+    // Escape LIKE wildcards so the search matches the text entered.
+    $pattern = '%' . str_replace(['!', '%', '_'], ['!!', '!%', '!_'], $search) . '%';
+    $stmt = $conn->prepare("SELECT * FROM results WHERE student_name LIKE ? ESCAPE '!' OR matric_no LIKE ? ESCAPE '!' OR subject_name LIKE ? ESCAPE '!' ORDER BY result DESC");
+    $stmt->bind_param('sss', $pattern, $pattern, $pattern);
+    $stmt->execute();
+    $results = $stmt->get_result();
+} else {
+    $results = $conn->query('SELECT * FROM results ORDER BY result DESC');
+}
 
 $resultLabel = 'results';
 if ($results->num_rows === 1) {
@@ -38,8 +52,8 @@ if ($results->num_rows === 1) {
                     <h2 id="records-title">Student results</h2>
                     <p class="muted">Student information, assessment marks and grades</p>
                 </div>
-                <form class="searchbar" id="search-form" role="search">
-                    <input type="search" id="searchInput" name="searchInput" aria-label="Search student results" placeholder="Search by student, matric no. or subject">
+                <form class="searchbar" method="get" action="index.php" role="search">
+                    <input type="search" id="searchInput" name="searchInput" value="<?php echo escape($search); ?>" aria-label="Search student results" placeholder="Search by student, matric no. or subject">
                     <button type="submit">Search</button>
                     <a href="index.php">
                         Show all
@@ -108,8 +122,8 @@ if ($results->num_rows === 1) {
                             <?php endwhile; ?>
                             <tr id="empty-row" <?php if ($results->num_rows > 0) echo 'hidden'; ?>>
                                 <td colspan="10" class="empty-state">
-                                    <strong id="empty-title">No results to display</strong>
-                                    <span id="empty-description">Add a result to get started.</span>
+                                    <strong id="empty-title"><?php echo $search !== '' ? 'No matching results' : 'No results to display'; ?></strong>
+                                    <span id="empty-description"><?php echo $search !== '' ? 'Try another student, matric no. or subject.' : 'Add a result to get started.'; ?></span>
                                 </td>
                             </tr>
                         </tbody>
@@ -120,6 +134,5 @@ if ($results->num_rows === 1) {
                 KUDRAT Student Grading System &middot; Academic Management
             </footer>
         </main>
-        <script src="search.js"></script>
     </body>
 </html>
