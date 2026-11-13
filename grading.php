@@ -15,14 +15,14 @@ function calculateResult(array $input): array
     $total = $marks['total_marks'];
     if ($total >= 80) {
         $marks['grade'] = 'A';
-    } elseif ($total >= 70) {
+    } elseif ($total >= 65) {
         $marks['grade'] = 'B';
-    } elseif ($total >= 60) {
-        $marks['grade'] = 'C';
     } elseif ($total >= 50) {
+        $marks['grade'] = 'C';
+    } elseif ($total >= 40) {
         $marks['grade'] = 'D';
     } else {
-        $marks['grade'] = 'F';
+        $marks['grade'] = 'E';
     }
     return $marks;
 }
