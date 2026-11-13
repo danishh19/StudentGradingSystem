@@ -72,7 +72,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="field">
                         <label for="password">Password</label>
-                        <input id="password" type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+                        <div class="password-control">
+                            <input id="password" type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+                            <button type="button" id="toggle-password" class="password-toggle" aria-controls="password" aria-label="Show password" title="Show password" hidden>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path id="password-icon-slash" d="m3 3 18 18" hidden />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <button type="submit" name="login">Sign in</button>
                 </form>
@@ -83,5 +92,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </p>
             </section>
         </main>
+        <script>
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.getElementById('toggle-password');
+
+            passwordToggle.hidden = false;
+            passwordToggle.addEventListener('click', () => {
+                const showPassword = passwordInput.type === 'password';
+                passwordInput.type = showPassword ? 'text' : 'password';
+                const label = showPassword ? 'Hide password' : 'Show password';
+                passwordToggle.setAttribute('aria-label', label);
+                passwordToggle.title = label;
+                document.getElementById('password-icon-slash').toggleAttribute('hidden', !showPassword);
+            });
+        </script>
     </body>
 </html>

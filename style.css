@@ -534,6 +534,33 @@ td .button {
     min-height: 48px;
 }
 
+.password-control {
+    position: relative;
+}
+
+.password-control input {
+    padding-right: 52px;
+}
+
+.login-card .password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    width: 36px;
+    min-height: 35px;
+    margin: 0;
+    padding: 6px 9px;
+    background: transparent;
+    color: var(--accent);
+    box-shadow: none;
+    font-size: 12px;
+    transform: translateY(-50%);
+}
+
+.login-card .password-toggle:hover {
+    background: #F1E5DB;
+}
+
 .login-footer {
     margin: 35px 0 0;
     padding-top: 20px;
